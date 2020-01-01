@@ -6,7 +6,7 @@
     <div class = "container">
       <Header/>
       <Sidebar/>
-      <Tasklist/>
+      <router-view/>
     </div>
     </v-content>
   </v-app>

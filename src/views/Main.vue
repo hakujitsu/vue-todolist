@@ -1,17 +1,18 @@
 <template>
-  <div>can you see this</div>
+  <Tasklist/>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import Tasklist from '../components/Tasklist.vue';
 
 @Component({
   components: {
-      
+      Tasklist,
   },
 })
 
-export default class Testview extends Vue {
+export default class Main extends Vue {
 
 }
 </script>

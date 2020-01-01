@@ -5,7 +5,6 @@
                     <img class = "icon" src = "../assets/svgs/all.svg">
                     <span class = "sb">All</span>
                 </div>
-                
                 <div class = "default_options">
                     <img class = "icon" src = "../assets/svgs/today.svg">
                     <span class = "sb">Today</span>
@@ -15,51 +14,26 @@
                     <img class = "icon" src = "../assets/svgs/thisweek.svg">
                     <span class = "sb">This Week</span>
                 </div>
-
             </div>
     
             <div class = "sidebar_tags">
-                <div class = "sb_tag_title">
-                    <strong>Tags</strong>
-                    <img class = "addtag" @click="tagdialog = true" src = "../assets/svgs/add.svg">
+                <router-link :to="{name: 'taglist'}">
+                <div class = "sb_tag_title">                   
+                    <strong>Tags</strong>                   
                 </div>
+                </router-link>
                 <hr/>
 
                 <div class = "sbtag" v-for= "tag in Tags" v-bind:key="tag.name">
-                    <div class="circle"></div>
-                    {{tag.name}}
+                    <router-link :to="{name: 'Tag', params: {tag: tag.name}}">
+                    <div>
+                        <div class="circle" :style="{'background-color': tag.color}"></div>
+                        {{tag.name}}
+                    </div> 
+                    </router-link>
                 </div>
-
                 
             </div>
-
-            <!-- ADD TAG FUNCTIONALITY -->
-
-            <v-dialog :value="tagdialog" width="350">
-                <v-card>
-                    <v-card-title class="headline grey lighten-2" primary-title>
-                        Add Task
-                    </v-card-title>
-  
-                    <v-card-text class="pt-5">
-                        Tag Name
-                        <v-text-field v-model="newtagname" dense></v-text-field>
-                    </v-card-text>
-                    
-  
-                    <v-card-actions>
-                        <v-spacer/>
-                        <v-btn color="#DB4C3F" text @click="addTag()">
-                            Confirm
-                        </v-btn>
-                        <v-btn color="#DB4C3F" text @click="cancelDialog()">
-                            Cancel
-                        </v-btn> 
-                    </v-card-actions>
-                </v-card>
-            </v-dialog>
-            <!-- ADD TAG FUNCTIONALITY END -->
-
         </div>
 </template>
 
@@ -77,31 +51,18 @@ export default class Sidebar extends Vue {
     Tags:indivtag[] = [
         {
             name: "Important",
+            color: "#DC9393",
         },
         {
             name: "Work",
+            color: "#A8D8A5",
         }
     ];
-
-    newtagname:string = "";
-    tagdialog: indivtag | null = null;
-
-    addTag(){
-        let newtag:indivtag = {
-            name:this.newtagname,
-        }
-        this.Tags.push(newtag);
-        this.cancelDialog();
-    }
-
-    cancelDialog(){
-        this.newtagname = "";
-        this.tagdialog = null;
-    }
 }
 
 export interface indivtag{
-        name: string;
+    name: string;
+    color: string;
 }
 </script>
 

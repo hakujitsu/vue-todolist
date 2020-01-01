@@ -1,6 +1,6 @@
 <template>
     <div class = "tasklist">
-        <div class = "task" v-for= "task in Tasks" v-bind:key="task.name">
+        <div class = "task" v-for= "task in flist" v-bind:key="task.name">
             <div class="taskspacing">
             <input type = "checkbox" @change="completeTask(task)"/>
             <span class = "taskname">{{task.name}}</span>
@@ -96,48 +96,11 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
-
-
-        <!-- PREVIOUS ADD TASK -->
-        <!-- <v-dialog v-model="dialog" width="500">
-            <template v-slot:activator="{ on }">
-                <div class = "addtask" v-on="on">
-                    Add Task
-                </div>
-            </template>
-  
-        <v-card>
-            <v-card-title class="headline grey lighten-2" primary-title>
-                Add Task
-            </v-card-title>
-  
-            <v-card-text class="pt-5">
-                Task Name
-                <v-text-field v-model="formtaskname" dense/>
-                Tags
-                <v-combobox v-model="select" :items="tags" multiple chips dense/>
-            </v-card-text>
-  
-            <v-divider/>
-  
-            <v-card-actions>
-                <v-spacer/>
-                <v-btn color="primary" text @click="createTask()">
-                    Confirm
-                </v-btn>
-                <v-btn color="primary" text @click="cancelDialog()">
-                    Cancel
-                </v-btn>
-            </v-card-actions>
-        </v-card>
-        </v-dialog> -->
-        <!-- PRESVIOUS ADD TASK END -->
-
     </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Prop } from 'vue-property-decorator';
 import _ from 'lodash';
 
 @Component({
@@ -146,6 +109,8 @@ import _ from 'lodash';
 })
 
 export default class Task extends Vue { 
+    @Prop() readonly flist!: string;  
+
     Tasks:indivtask[] = [
         {
             name: "Do CVWO Task",

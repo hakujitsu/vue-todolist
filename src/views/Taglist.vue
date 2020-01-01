@@ -1,31 +1,29 @@
 <template>
     <div class = "main">
-        <div class = "taskheader">Today</div>
-        <Task/>
+        <div class = "tagheader">Tags</div>
+        <ManageTags/>
     </div>
-    
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import _ from 'lodash';
-import Task from '@/components/Task.vue';
+import ManageTags from '@/components/ManageTags.vue';
 
 
 @Component({
   components: {
-      Task
+      ManageTags
   },
 })
 
-export default class Tasklist extends Vue {
-
+export default class Header extends Vue {
 }
 </script>
 
 
 <style scoped>
-/* Tasklist */
+/* Taglist */
 
 .main{
     box-sizing: border-box;
@@ -37,7 +35,7 @@ export default class Tasklist extends Vue {
     overflow: scroll;
 }
 
-.taskheader{
+.tagheader{
     font-size: 20px;
     font-weight: bold;
 }
