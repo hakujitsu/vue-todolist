@@ -5,10 +5,13 @@
                     <img class = "icon" src = "../assets/svgs/all.svg">
                     <span class = "sb">All</span>
                 </div>
+
+                <router-link :to="{name: 'home'}">
                 <div class = "default_options">
                     <img class = "icon" src = "../assets/svgs/today.svg">
                     <span class = "sb">Today</span>
                 </div>
+                </router-link>
 
                 <div class = "default_options">
                     <img class = "icon" src = "../assets/svgs/thisweek.svg">

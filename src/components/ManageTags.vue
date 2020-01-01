@@ -131,18 +131,13 @@ export default class ManageTags extends Vue {
     edittagname:string = "";
 
     addTag(){
+        let newcolor:string | undefined = this.hexcolor.get(this.select);
         let newtag:indivtag = {
-            name:this.newtagname,
-            color: this.colorConfig(this.select),
+            name: this.newtagname,
+            color: newcolor || "#DC9393",
         }
         this.Tags.push(newtag);
         this.cancelDialog();
-    }
-
-    colorConfig(color:string){
-        return this.hexcolor.get(color) == undefined
-            ? "#DC9393"
-            : this.hexcolor.get(color);
     }
 
     deleteTag(x:indivtag){

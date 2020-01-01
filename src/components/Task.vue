@@ -169,7 +169,7 @@ export default class Task extends Vue {
         this.editdialog = x;
         this.editformtaskname = x.name;
         if(this.editselect !== undefined){
-            this.editselect = x.tag;
+            this.editselect = x.tag!;
         }
         //implement id?   
     }

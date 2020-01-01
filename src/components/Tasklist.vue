@@ -1,7 +1,7 @@
 <template>
     <div class = "main">
         <div class = "taskheader">Today</div>
-        <Task/>
+        <Task :flist="Tasks"/>
     </div>
     
 </template>
@@ -19,7 +19,33 @@ import Task from '@/components/Task.vue';
 })
 
 export default class Tasklist extends Vue {
+    Tasks:indivtask[] = [
+        {
+            name: "Do CVWO Task",
+            done: true,
+            id: 1,
+        },
+        {
+            name: "Play Celeste",
+            done: false,
+            tag: ["Important"],
+            id: 2
+        },
+        {
+            name: "Sleep",
+            done: false,
+            id: 3
+        }
+    ]; 
 
+}
+
+export interface indivtask{
+        name: string;
+        done: boolean;
+        tag?: string[];
+        date?: Date;
+        id: number;
 }
 </script>
 
