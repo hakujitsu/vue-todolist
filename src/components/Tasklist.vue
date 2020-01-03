@@ -12,8 +12,6 @@ import _ from 'lodash';
 import Task from '@/components/Task.vue';
 import { TaskService, indivtask } from '@/services/TaskService'
 
-
-
 @Component({
   components: {
       Task

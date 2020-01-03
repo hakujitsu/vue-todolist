@@ -23,9 +23,11 @@ class TService {
 
     addTag(name: string, color:string) {
         let newcolor:string | undefined = this.hexcolor.get(color);
+        console.log(color);
+        console.log(newcolor);
         let newtag:indivtag = {
             name: name,
-            color: newcolor || "#DC9393",
+            color: newcolor!,
             id: this.Tags[this.Tags.length - 1].id + 1,
         }
         this.Tags.push(newtag);
@@ -35,11 +37,15 @@ class TService {
         this.Tags.splice(this.Tags.indexOf(oldTag), 1);
     }
 
-    getTag() {
-        
+    getTag(id: number) {
+        // what if undefined
+        return this.Tags.find(x => x.id == id);
     }
     
-    updateTag() {
+    updateTag(editedid: number, editedname: string, editedcolor:string) {
+        let edittag = this.getTag(editedid);
+        edittag!.name = editedname;
+        edittag!.color = this.hexcolor.get(editedcolor)!;
     }
 }
 

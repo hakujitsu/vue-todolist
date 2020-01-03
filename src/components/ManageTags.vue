@@ -16,8 +16,6 @@
             Add Tag
         </div>
 
-        {{flist}}
-
         <!-- ADD TAG FUNCTIONALITY -->
         <v-dialog :value="tagdialog" width="350">
             <v-card>
@@ -44,7 +42,7 @@
             </v-card>
         </v-dialog>
 
-        <!-- EDIT TASK FUNCTIONALITY -->
+        <!-- EDIT TAG FUNCTIONALITY -->
         <v-dialog :value="editdialog" width="350">
             <v-card>
                 <v-card-title class="headline grey lighten-2" primary-title>
@@ -54,6 +52,8 @@
                 <v-card-text class="pt-5">
                     Tag Name
                     <v-text-field v-model="edittagname" dense></v-text-field>
+                    Color
+                    <v-combobox v-model="editselect" :items="colors" dense/>
                 </v-card-text>
                     
                 <v-card-actions>
@@ -109,10 +109,13 @@ export default class ManageTags extends Vue {
     select:string = "";
     colors:string[] = ["Red", "Yellow", "Pink", "Purple", "Blue", "Green"];
     editdialog: indivtag | null = null;
+    editselect:string = "";
     deletedialog: indivtag | null = null;
-
+    
     newtagname:string = "";
     edittagname:string = "";
+
+    editedtagid:number | null = null;
 
     addTag(){
         TagService.addTag(this.newtagname, this.select);
@@ -127,9 +130,12 @@ export default class ManageTags extends Vue {
     initialiseEditDialog(x:indivtag){
         this.editdialog = x;
         this.edittagname = x.name;
+        this.editedtagid = x.id;
+        console.log(x.id);
     }
 
     editTag(){
+        TagService.updateTag(this.editedtagid!, this.edittagname, this.editselect);
         this.cancelDialog();
     }
 
