@@ -43,6 +43,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import _ from 'lodash';
+import { TagService, indivtag } from '@/services/TagService'
 
 @Component({
   components: {
@@ -51,21 +52,7 @@ import _ from 'lodash';
 })
 
 export default class Sidebar extends Vue {
-    Tags:indivtag[] = [
-        {
-            name: "Important",
-            color: "#DC9393",
-        },
-        {
-            name: "Work",
-            color: "#A8D8A5",
-        }
-    ];
-}
-
-export interface indivtag{
-    name: string;
-    color: string;
+    Tags:indivtag[] = TagService.Tags;
 }
 </script>
 

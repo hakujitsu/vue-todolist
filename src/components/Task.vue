@@ -102,6 +102,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import _ from 'lodash';
+import { TaskService, indivtask } from '@/services/TaskService';
 
 @Component({
   components: {
@@ -109,26 +110,9 @@ import _ from 'lodash';
 })
 
 export default class Task extends Vue { 
-    @Prop() readonly flist!: string;  
+    @Prop() readonly flist!: indivtask[];  
 
-    Tasks:indivtask[] = [
-        {
-            name: "Do CVWO Task",
-            done: true,
-            id: 1,
-        },
-        {
-            name: "Play Celeste",
-            done: false,
-            tag: ["Important"],
-            id: 2
-        },
-        {
-            name: "Sleep",
-            done: false,
-            id: 3
-        }
-    ]; 
+    Tasks:indivtask[] = TaskService.Tasks;
 
     adddialog: indivtask | null = null;
     editdialog: indivtask | null = null;
@@ -146,22 +130,19 @@ export default class Task extends Vue {
         x.done = true;
     }
 
-    deleteTask(x:indivtask){
-        console.log(x.name);
-        this.Tasks.splice(this.Tasks.indexOf(x), 1);
-        this.cancelDialog();
-    }
-
     createTask(){
-        console.log(this.formtaskname);
-        console.log(this.select);
-        let something:indivtask = {
+        let newTask:indivtask = {
             name: this.formtaskname,
             done: false,
             tag: this.select,
-            id: this.Tasks[this.Tasks.length -1].id + 1,
+            id: this.Tasks[this.Tasks.length - 1].id + 1,
         };
-        this.Tasks.push(something);
+        TaskService.addTask(newTask);
+        this.cancelDialog();
+    }
+
+    deleteTask(oldTask:indivtask){
+        TaskService.deleteTask(oldTask);
         this.cancelDialog();
     }
 
@@ -173,7 +154,6 @@ export default class Task extends Vue {
         }
         //implement id?   
     }
-
 
     editTask(x:indivtask){
         console.log(x);
@@ -196,14 +176,6 @@ export default class Task extends Vue {
         this.editformtaskname = "";
         this.editselect=[];
     }
-}
-
-export interface indivtask{
-        name: string;
-        done: boolean;
-        tag?: string[];
-        date?: Date;
-        id: number;
 }
 
 </script>

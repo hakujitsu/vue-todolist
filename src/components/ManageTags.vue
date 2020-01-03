@@ -92,8 +92,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue} from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
 import _ from 'lodash';
+import { TagService, indivtag } from '@/services/TagService'
+import Tag from '../views/Tag.vue';
 
 @Component({
   components: {
@@ -101,25 +103,7 @@ import _ from 'lodash';
 })
 
 export default class ManageTags extends Vue { 
-    Tags:indivtag[] = [
-        {
-            name: "Important",
-            color: "#DC9393",
-        },
-        {
-            name: "Work",
-            color: "#A8D8A5",
-        }
-    ];
-
-    hexcolor:Map<string, string> = new Map([
-        ["Red", "#DC9393"],
-        ["Pink", "#FFCECE"],
-        ["Purple", "#E0B9F5"],
-        ["Yellow", "#ECED9D"],
-        ["Green", "#A8D8A5"],
-        ["Blue", "#93D1DC"]
-    ]);
+    Tags:indivtag[] = TagService.Tags;
 
     tagdialog: indivtag | null = null;
     select:string = "";
@@ -131,18 +115,12 @@ export default class ManageTags extends Vue {
     edittagname:string = "";
 
     addTag(){
-        let newcolor:string | undefined = this.hexcolor.get(this.select);
-        let newtag:indivtag = {
-            name: this.newtagname,
-            color: newcolor || "#DC9393",
-        }
-        this.Tags.push(newtag);
+        TagService.addTag(this.newtagname, this.select);
         this.cancelDialog();
     }
 
-    deleteTag(x:indivtag){
-        console.log(x.name);
-        this.Tags.splice(this.Tags.indexOf(x), 1);
+    deleteTag(oldTag:indivtag){
+        TagService.deleteTag(oldTag);
         this.cancelDialog();
     }
 
@@ -173,11 +151,6 @@ export interface indivtask{
         tag?: string[];
         date?: Date;
         id: number;
-}
-
-export interface indivtag{
-        name: string;
-        color: string;
 }
 
 </script>
